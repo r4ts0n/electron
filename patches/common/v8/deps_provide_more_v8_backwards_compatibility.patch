@@ -22,7 +22,7 @@ Reviewed-By: Yang Guo <yangguo@chromium.org>
 Reviewed-By: Michaël Zasso <targos@protonmail.com>
 
 diff --git a/include/v8.h b/include/v8.h
-index 784e1830edeebaf2b15eaad4230f318f91acad5f..ec561377223bdfed51042a03bd1982b3975be847 100644
+index 784e1830edeebaf2b15eaad4230f318f91acad5f..cc2fefc56a4eeaeab48f2042d6c8dbbadb1e3210 100644
 --- a/include/v8.h
 +++ b/include/v8.h
 @@ -1123,6 +1123,10 @@ class V8_EXPORT PrimitiveArray {
@@ -45,44 +45,20 @@ index 784e1830edeebaf2b15eaad4230f318f91acad5f..ec561377223bdfed51042a03bd1982b3
    Local<StackFrame> GetFrame(Isolate* isolate, uint32_t index) const;
  
    /**
-@@ -2524,18 +2530,25 @@ class V8_EXPORT Value : public Data {
-       Local<Context> context) const;
-   V8_WARN_UNUSED_RESULT MaybeLocal<Int32> ToInt32(Local<Context> context) const;
+@@ -2537,6 +2543,13 @@ class V8_EXPORT Value : public Data {
+   V8_DEPRECATE_SOON("Use maybe version",
+                     Local<Int32> ToInt32(Isolate* isolate) const);
  
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<Boolean> ToBoolean(Isolate* isolate) const);
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<Number> ToNumber(Isolate* isolate) const);
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<String> ToString(Isolate* isolate) const);
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<Object> ToObject(Isolate* isolate) const);
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<Integer> ToInteger(Isolate* isolate) const);
--  V8_DEPRECATE_SOON("Use maybe version",
--                    Local<Int32> ToInt32(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<Boolean> ToBoolean(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<Number> ToNumber(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<String> ToString(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<Object> ToObject(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<Integer> ToInteger(Isolate* isolate) const);
-+  V8_DEPRECATED("Use maybe version",
-+                Local<Int32> ToInt32(Isolate* isolate) const);
-+
 +  inline V8_DEPRECATED("Use maybe version",
 +                       Local<Boolean> ToBoolean() const);
 +  inline V8_DEPRECATED("Use maybe version", Local<String> ToString() const);
 +  inline V8_DEPRECATED("Use maybe version", Local<Object> ToObject() const);
 +  inline V8_DEPRECATED("Use maybe version",
 +                       Local<Integer> ToInteger() const);
- 
++
    /**
     * Attempts to convert a string to an array index.
+    * Returns an empty handle if the conversion fails.
 @@ -2552,7 +2565,14 @@ class V8_EXPORT Value : public Data {
        Local<Context> context) const;
    V8_WARN_UNUSED_RESULT Maybe<int32_t> Int32Value(Local<Context> context) const;
@@ -375,5 +351,5 @@ index 7a53cc1370cf30c858fd87156e2eb75d4b57a60b..bc544f1c7c7f9f8e3bac9804697848ed
      : str_(nullptr), length_(0) {
    if (obj.IsEmpty()) return;
 -- 
-2.16.1
+2.14.3 (Apple Git-98)
 
