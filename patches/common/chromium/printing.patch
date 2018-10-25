@@ -90,7 +90,7 @@ index 182f7563e0c7d6486a5d2843d86f66524c02cb10..eed2230627d6b35486081f628a2ee978
    const std::unique_ptr<PrintingContext::Delegate> printing_context_delegate_;
  
 diff --git a/chrome/browser/printing/print_preview_message_handler.cc b/chrome/browser/printing/print_preview_message_handler.cc
-index 7f4f4dad7b85ec452b28b80c4f2b50ef0f7972ed..4eae9fb0b73b76fba68def7fffcb4dbfeb069006 100644
+index 7f4f4dad7b85ec452b28b80c4f2b50ef0f7972ed..e68eb682a72b4eb3b0f4f8e6a01a68674a67d830 100644
 --- a/chrome/browser/printing/print_preview_message_handler.cc
 +++ b/chrome/browser/printing/print_preview_message_handler.cc
 @@ -51,7 +51,7 @@ void StopWorker(int document_cookie) {
@@ -173,11 +173,12 @@ index 7f4f4dad7b85ec452b28b80c4f2b50ef0f7972ed..4eae9fb0b73b76fba68def7fffcb4dbf
      IPC_MESSAGE_HANDLER(PrintHostMsg_MetafileReadyForPrinting,
                          OnMetafileReadyForPrinting)
      IPC_MESSAGE_UNHANDLED(handled = false)
-@@ -325,8 +333,13 @@ bool PrintPreviewMessageHandler::OnMessageReceived(
+@@ -324,9 +332,14 @@ bool PrintPreviewMessageHandler::OnMessageReceived(
+ 
    handled = true;
    IPC_BEGIN_MESSAGE_MAP(PrintPreviewMessageHandler, message)
-     IPC_MESSAGE_HANDLER(PrintHostMsg_DidStartPreview, OnDidStartPreview)
 +#if 0
+     IPC_MESSAGE_HANDLER(PrintHostMsg_DidStartPreview, OnDidStartPreview)
 +    IPC_MESSAGE_HANDLER(PrintHostMsg_DidGetPreviewPageCount,
 +                        OnDidGetPreviewPageCount)
 +#endif
@@ -985,5 +986,5 @@ index 283c0ff81954bb9e777b1e0007a735ec0ad4901e..231873a456442856c43d643e41c1bb22
  // of |PrintSettingsFromJobSettings| input.
  void PrintSettingsToJobSettingsDebug(const PrintSettings& settings,
 -- 
-2.16.1
+2.14.3 (Apple Git-98)
 
